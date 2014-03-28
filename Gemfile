@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'faker'
 gem 'devise'
 gem 'pundit'
+gem 'redcarpet'
 
 group :doc do
   gem 'sdoc', require: false
