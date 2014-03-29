@@ -13,6 +13,10 @@ gem 'faker'
 gem 'devise'
 gem 'pundit'
 gem 'redcarpet'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'figaro'
 
 group :doc do
   gem 'sdoc', require: false
