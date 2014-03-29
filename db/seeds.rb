@@ -1,5 +1,6 @@
 require 'faker'
 
+# Create 15 topics
 topics = []
 15.times do
   topics << Topic.create(
@@ -7,14 +8,14 @@ topics = []
     description: Faker::Lorem.paragraph
   )
 end
-
-
+ 
+# Create 5 users with their own topics and posts
 5.times do
   password = Faker::Lorem.characters(10)
   user = User.new(
-    name: Faker::Name.name,
-    email: Faker::Internet.email,
-    password: password,
+    name: Faker::Name.name, 
+    email: Faker::Internet.email, 
+    password: password, 
     password_confirmation: password)
   user.skip_confirmation!
   user.save
@@ -23,16 +24,26 @@ end
     topic = topics.first
     post = Post.create(
       user: user,
-      title: Faker::Lorem.sentence,
+      topic: topic,
+      title: Faker::Lorem.sentence, 
       body: Faker::Lorem.paragraph)
-    post.update_attribute(:created_at, Time.now - rand(600..315360000))
+    # set the created_at to a time within the past year
+    post.update_attribute(:created_at, Time.now - rand(600..31536000))
+
+    topics.rotate!
   end
 end
 
-puts "Seed finished"
-puts "#{User.count} users created"
-puts "#{Post.count} posts created"
-puts "#{Comment.count} comments created"
+post_count = Post.count
+User.all.each do |user|
+  4.times do
+    post = Post.find(rand(1..post_count))
+    comment = user.comments.create(
+      body: Faker::Lorem.paragraph,
+      post: post)
+    comment.update_attribute(:created_at, Time.now - rand(600..31536000))
+  end
+end
 
 # Create an admin user
 admin = User.new(
@@ -63,3 +74,7 @@ member = User.new(
 member.skip_confirmation!
 member.save
 
+puts "Seed finished"
+puts "#{User.count} users created"
+puts "#{Post.count} posts created"
+puts "#{Comment.count} comments created"

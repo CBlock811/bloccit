@@ -32,7 +32,7 @@ class TopicsController < ApplicationController
     end
   end 
 
-    def update
+  def update
     @topic = Topic.find(params[:id])
     authorize @topic
     if @topic.update_attributes(topic_params)

@@ -9,6 +9,10 @@
     </small>
     <p><%= image_tag(@post.image.url) %></p>
     <p><%= markdown @post.body %></p>
+    <p><%= render partial: 'comments/comment', collection: @comments, locals: { topic: @topic, post: @post} %></p>
+    <%= if policy(@comment).create? %>
+      <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment} %>
+    <% end %>
   </div>
   <div class="col-md-4">
     <% if policy(@post).edit? %>
