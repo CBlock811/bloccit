@@ -12,6 +12,7 @@
     
     <p><%= image_tag(@post.image.url) %></p>
     <p><%= markdown @post.body %></p>
+    <h2 class='js-comments-count'><%= @comments.count %> Comments</h2>
     <p><%= render partial: 'comments/comment', collection: @comments %></p>
 
     <% if policy(@comment).create? %>
