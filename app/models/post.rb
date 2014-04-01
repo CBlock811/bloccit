@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
   end
 
   default_scope { order('rank DESC') }
-  scope :visible_to, ->(user) { user? scoped : joins(:topic).where('topics.public' => true)}
+  scope :visible_to, ->(user) { user ? scoped : joins(:topic).where('topics.public' => true)}
 
   private
 
