@@ -13,7 +13,9 @@
     <p><%= image_tag(@post.image.url) %></p>
     <p><%= markdown @post.body %></p>
     <h2 class='js-comments-count'><%= @comments.count %> Comments</h2>
+    <div class='js-comments'?
     <p><%= render partial: 'comments/comment', collection: @comments %></p>
+    </div>
 
     <% if policy(@comment).create? %>
       <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment} %>
